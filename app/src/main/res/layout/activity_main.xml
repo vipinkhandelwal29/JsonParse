@@ -5,20 +5,58 @@
     <data>
 
     </data>
-
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <LinearLayout
-            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:orientation="vertical">
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/delete"
+                android:layout_marginBottom="20dp"
+                android:background="@color/teal_200"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_margin="20dp"
+                android:textColor="@color/white"
+                />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSelectAll"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/select_all"
+                android:layout_marginBottom="20dp"
+                android:background="@color/teal_200"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_margin="20dp"
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
 
-    </ScrollView>
+    </FrameLayout>
 </layout>
