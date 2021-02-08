@@ -4,10 +4,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import com.example.bean.SerializedBean
@@ -23,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
         val data1 = readFromAsset()
         val jsonPrase = fromJson(data1)
         Log.d("onCreate: ", "$jsonPrase")
@@ -34,13 +32,13 @@ class MainActivity : AppCompatActivity() {
 
 
         val list = ArrayList<View>()
-        var isAllChecked = false
 
 
         jsonPrase.students.forEach { data ->
             val rawLayout = ConstraintLayoutBinding.inflate(layoutInflater)
             rawLayout.students = data
             binding.linear.addView(rawLayout.root)
+
             rawLayout.age.setOnClickListener {
                 binding.linear.removeView(rawLayout.root)
             }
@@ -49,24 +47,26 @@ class MainActivity : AppCompatActivity() {
 
                 if (isChecked) {
                     list.add(rawLayout.root)
-                    if(jsonPrase.students.size == list.size){
+                    if (jsonPrase.students.size == list.size) {
                         // toggle to all checked
                         binding.btnSelectAll.setBackgroundColor(Color.GRAY)
                         //type cast
                         binding.btnSelectAll.text = resources.getText(R.string.unselect_all)
-                        isAllChecked = true
                     }
-                }
-                else {
-                    if(isAllChecked){
-                        // toggle to Uncheck
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                            binding.btnSelectAll.setBackgroundColor(resources.getColor(R.color.teal_200,theme))
-                        }
-                        binding.btnSelectAll.text = resources.getText(R.string.select_all)
-                        isAllChecked = false
-                    }
+                } else {
+
                     list.remove(rawLayout.root)
+
+                    // toggle to Uncheck
+                    binding.btnSelectAll.setBackgroundColor(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.teal_200
+                        )
+                    )
+
+                    binding.btnSelectAll.text = resources.getText(R.string.select_all)
+
                 }
             }
 
@@ -75,32 +75,20 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btnSelectAll.setOnClickListener { it ->
-            if(!isAllChecked) {
-                // toggle to all checked
-                binding.linear.forEach {
-                    val checkBox: CheckBox = it.findViewById(R.id.checkBox)
-                    checkBox.isChecked = true
-                }
-                it.setBackgroundColor(Color.GRAY)
-                //type cast
-                (it as AppCompatButton).text = resources.getText(R.string.unselect_all)
-                isAllChecked = true
-            } else {
-                // toggle to all Uncheck
-                binding.linear.forEach {
-                    val checkBox: CheckBox = it.findViewById(R.id.checkBox)
-                    if(checkBox.isChecked) checkBox.isChecked = false
-                }
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    binding.btnSelectAll.setBackgroundColor(resources.getColor(R.color.teal_200, theme))
-                }
-                (it as AppCompatButton).text = resources.getText(R.string.select_all)
-                isAllChecked = false
-            }
+
+            val isSelectedAll = jsonPrase.students.size != list.size
+            binding.linear.forEach {
+                it.findViewById<CheckBox>(R.id.checkBox)?.isChecked = isSelectedAll
+            }/*
+            binding.btnSelectAll.setBackgroundColor(if(isSelectedAll)Color.GRAY else ContextCompat.getColor(
+                    this,
+                R.color.teal_200
+            ))
+            binding.btnSelectAll.text =if(isSelectedAll) resources.getText(R.string.unselect_all) else resources.getText(R.string.select_all)*/
         }
 
-        binding.btnDelete.setOnClickListener{
-            list.forEach{
+        binding.btnDelete.setOnClickListener {
+            list.forEach {
                 binding.linear.removeView(it)
             }
 
