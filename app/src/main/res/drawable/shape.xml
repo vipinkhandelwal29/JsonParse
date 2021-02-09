@@ -5,7 +5,7 @@
         android:color="@color/black"
         tools:ignore="ExtraText">stroke</stroke>-->
 
-    <corners android:radius="20dp"
+    <corners android:radius="30dp"
         tools:ignore="ExtraText">corner</corners>
 
 
