@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("onCreate: ", "$jsonPrase")
 
 
+
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                 binding.linear.removeView(rawLayout.root)
             }
 
+
             rawLayout.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
 
                 if (isChecked) {
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                         // toggle to all checked
                         binding.btnSelectAll.setBackgroundColor(Color.GRAY)
                         //type cast
-                        binding.btnSelectAll.text = resources.getText(R.string.unselect_all)
+                        binding.btnSelectAll.text = resources.getText(R.string.un_select_all)
                     }
                 } else {
 

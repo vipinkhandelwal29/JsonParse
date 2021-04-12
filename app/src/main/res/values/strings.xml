@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Version 2</string>
+    <string name="app_name">Json Parse A/S</string>
     <string name="delete">Delete</string>
     <string name="desc">My Name is vipin Kumar Khandelwal</string>
     <string name="select_all">Select All</string>
-    <string name="unselect_all">Unselect All</string>
+    <string name="un_select_all">UnSelect All</string>
     <string name="apr">Apr</string>
 
 

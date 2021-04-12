@@ -8,5 +8,4 @@ data class StudentBean(
     @SerializedName("age") var age: Int,
     @SerializedName("name") var name: String
 
-
 )
